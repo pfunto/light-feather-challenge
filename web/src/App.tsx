@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import Form from './components/Form';
+import NotificationForm from './components/NotificationForm';
 
 function App() {
   return (
     <div className="App">
-      <Form />
+      <h1>Notification Form</h1>
+      <NotificationForm />
     </div>
   );
 }
