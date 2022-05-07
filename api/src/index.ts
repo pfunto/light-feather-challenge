@@ -1,5 +1,8 @@
 import express, { Request, Response } from 'express';
-import { getSupervisors } from './endpoints/notificationForm';
+import {
+  getSupervisors,
+  createNotification,
+} from './endpoints/notificationForm';
 
 const app = express();
 
@@ -18,6 +21,7 @@ export function createContext({
 
 const main = async () => {
   app.get('/api/supervisors', getSupervisors);
+  app.post('/api/submit', createNotification);
 
   app.set('trust proxy', 1);
 
