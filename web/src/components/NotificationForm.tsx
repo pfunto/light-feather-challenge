@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
-interface Inputs {
+import { useState } from 'react';
+interface NotificationFormFields {
   firstName: string;
   lastName: string;
   email: string;
@@ -13,8 +14,11 @@ const NotificationForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({ mode: 'onBlur' });
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  } = useForm<NotificationFormFields>({ mode: 'onBlur' });
+  const onSubmit: SubmitHandler<NotificationFormFields> = (data) =>
+    console.log(data);
+
+  const [isPhoneChecked, setIsPhoneChecked] = useState<boolean>();
 
   return (
     <>
@@ -35,25 +39,29 @@ const NotificationForm = () => {
           </div>
 
           <div>
-            <label>Last Name</label>
-            <input
-              {...register('lastName', {
-                required: { value: true, message: 'Last name is required' },
-                pattern: {
-                  value: /^[A-Za-z]+$/i,
-                  message: 'Please, only use letters',
-                },
-              })}
-            />
+            <div>
+              <label>Last Name</label>
+              <input
+                {...register('lastName', {
+                  required: { value: true, message: 'Last name is required' },
+                  pattern: {
+                    value: /^[A-Za-z]+$/i,
+                    message: 'Please, only use letters',
+                  },
+                })}
+              />
+            </div>
+
             {errors.lastName && errors.lastName.message}
           </div>
 
           <div>
             <div>
-              <input type="checkbox"></input>
+              <input type="checkbox" />
               <label>Email</label>
             </div>
             <input
+              type="email"
               {...register('email', {
                 pattern: {
                   value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
@@ -66,24 +74,22 @@ const NotificationForm = () => {
 
           <div>
             <div>
-              <input type="checkbox"></input>
+              <input type="checkbox" />
               <label>Phone Number</label>
             </div>
             <input
+              type="tel"
               {...register('phoneNumber', {
                 pattern: {
-                  value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                  value: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/,
                   message: 'Please enter a valid phone number',
                 },
               })}
             />
-            {errors.email && errors.email.message}
+            {errors.phoneNumber && errors.phoneNumber.message}
           </div>
 
-          {/* <div>
-          <label>Supervisor</label>
-          <input></input>
-        </div> */}
+          {/* <MyInput label="Supervisors" name="supervisors" register={register} /> */}
         </StyledFormFieldContainer>
 
         <input type="submit" />
