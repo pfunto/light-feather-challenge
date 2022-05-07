@@ -1,15 +1,24 @@
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getManagers } from '../services/NotificationFormService';
 interface NotificationFormFields {
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
-  // supervisor: string;
+  supervisor: string;
 }
 
 const NotificationForm = () => {
+  const [supervisors, setSupervisors] = useState<string[]>([]);
+
+  useEffect(() => {
+    getManagers().then((response) => {
+      setSupervisors(response);
+    });
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -17,8 +26,6 @@ const NotificationForm = () => {
   } = useForm<NotificationFormFields>({ mode: 'onBlur' });
   const onSubmit: SubmitHandler<NotificationFormFields> = (data) =>
     console.log(data);
-
-  const [isPhoneChecked, setIsPhoneChecked] = useState<boolean>();
 
   return (
     <>
@@ -89,7 +96,15 @@ const NotificationForm = () => {
             {errors.phoneNumber && errors.phoneNumber.message}
           </div>
 
-          {/* <MyInput label="Supervisors" name="supervisors" register={register} /> */}
+          {/* <div>
+            <label>Supervisor</label>
+            <select
+              {...register('supervisor', {
+                required: { value: true, message: 'Select a supervisor' },
+              })}
+            />
+            {errors.supervisor && errors.supervisor.message}
+          </div> */}
         </StyledFormFieldContainer>
 
         <input type="submit" />
