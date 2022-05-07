@@ -72,10 +72,10 @@ const NotificationForm = () => {
           </StyledFormInputWrapper>
 
           <StyledFormInputWrapper>
-            <div>
+            <StyledFormCheckBox>
               <input type="checkbox" />
               <label>Email</label>
-            </div>
+            </StyledFormCheckBox>
             <StyledFormInput
               type="email"
               {...register('email', {
@@ -91,10 +91,10 @@ const NotificationForm = () => {
           </StyledFormInputWrapper>
 
           <StyledFormInputWrapper>
-            <div>
+            <StyledFormCheckBox>
               <input type="checkbox" />
               <label>Phone Number</label>
-            </div>
+            </StyledFormCheckBox>
             <StyledFormInput
               type="tel"
               {...register('phoneNumber', {
@@ -108,26 +108,26 @@ const NotificationForm = () => {
               {errors.phoneNumber && errors.phoneNumber.message}
             </StyledFormError>
           </StyledFormInputWrapper>
-
-          <StyledFormInputWrapper>
-            <label>Supervisor</label>
-            <select
-              {...register('supervisor', {
-                required: { value: true, message: 'Select a supervisor' },
-              })}
-            >
-              <option value="" hidden>
-                Select...
-              </option>
-              {supervisors.map((supervisor) => (
-                <option value={supervisor}>{supervisor}</option>
-              ))}
-            </select>
-            <StyledFormError>
-              {errors.supervisor && errors.supervisor.message}
-            </StyledFormError>
-          </StyledFormInputWrapper>
         </StyledFormFieldContainer>
+
+        <StyledFormDropDown>
+          <label>Supervisor</label>
+          <select
+            {...register('supervisor', {
+              required: { value: true, message: 'Select a supervisor' },
+            })}
+          >
+            <option value="" hidden>
+              Select...
+            </option>
+            {supervisors.map((supervisor) => (
+              <option value={supervisor}>{supervisor}</option>
+            ))}
+          </select>
+          <StyledFormError>
+            {errors.supervisor && errors.supervisor.message}
+          </StyledFormError>
+        </StyledFormDropDown>
 
         <input type="submit" />
       </StyledForm>
@@ -136,7 +136,8 @@ const NotificationForm = () => {
 };
 
 const StyledForm = styled.form`
-  margin: 5rem;
+  margin: auto;
+  max-width: 800px;
 `;
 
 const StyledFormFieldContainer = styled.div`
@@ -158,14 +159,34 @@ const StyledFormInputWrapper = styled.div`
     text-align: left;
     margin-bottom: 0.5rem;
   }
-
-  span {
-    color: red;
-    position: absolute;
-    bottom: 0;
-  }
 `;
 
-const StyledFormError = styled.span``;
+const StyledFormCheckBox = styled.div`
+  display: flex;
+`;
+
+const StyledFormError = styled.span`
+  color: red;
+  position: absolute;
+  bottom: 0;
+`;
+
+const StyledFormDropDown = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  max-width: 300px;
+  margin: 1rem auto;
+
+  select {
+    padding: 0.5rem 0.5rem;
+  }
+
+  label {
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+`;
 
 export default NotificationForm;
