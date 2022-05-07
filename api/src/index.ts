@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { getSupervisors } from './endpoints/supervisors';
+import { getSupervisors } from './endpoints/notificationForm';
 
 const app = express();
 
