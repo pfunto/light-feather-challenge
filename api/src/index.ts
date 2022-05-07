@@ -1,9 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import {
-  getSupervisors,
-  // createNotification,
-} from './endpoints/notificationForm';
+import { getSupervisors } from './endpoints/supervisors';
+import { createNotification } from './endpoints/notification';
 
 const app = express();
 
@@ -27,8 +25,11 @@ const main = async () => {
     })
   );
 
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
   app.get('/api/supervisors', getSupervisors);
-  // app.post('/api/submit', createNotification);
+  app.post('/api/submit', createNotification);
 
   app.set('trust proxy', 1);
 

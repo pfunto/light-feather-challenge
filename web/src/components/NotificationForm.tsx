@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { getManagers } from '../services/NotificationFormService';
-interface NotificationFormFields {
+import {
+  createNotification,
+  getManagers,
+} from '../services/NotificationFormService';
+export interface NotificationFormFields {
   firstName: string;
   lastName: string;
   email: string;
@@ -14,9 +17,13 @@ const NotificationForm = () => {
   const [supervisors, setSupervisors] = useState<string[]>([]);
 
   useEffect(() => {
-    getManagers().then((response) => {
-      setSupervisors(response);
-    });
+    getManagers()
+      .then((response) => {
+        setSupervisors(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const {
@@ -25,7 +32,7 @@ const NotificationForm = () => {
     formState: { errors },
   } = useForm<NotificationFormFields>({ mode: 'onBlur' });
   const onSubmit: SubmitHandler<NotificationFormFields> = (data) =>
-    console.log(data);
+    createNotification(data);
 
   return (
     <>
