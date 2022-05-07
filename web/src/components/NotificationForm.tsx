@@ -103,15 +103,22 @@ const NotificationForm = () => {
             {errors.phoneNumber && errors.phoneNumber.message}
           </div>
 
-          {/* <div>
+          <div>
             <label>Supervisor</label>
             <select
               {...register('supervisor', {
                 required: { value: true, message: 'Select a supervisor' },
               })}
-            />
+            >
+              <option value="" hidden>
+                Select...
+              </option>
+              {supervisors.map((supervisor) => (
+                <option value={supervisor}>{supervisor}</option>
+              ))}
+            </select>
             {errors.supervisor && errors.supervisor.message}
-          </div> */}
+          </div>
         </StyledFormFieldContainer>
 
         <input type="submit" />
