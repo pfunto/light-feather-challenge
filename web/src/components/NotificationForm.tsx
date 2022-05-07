@@ -38,9 +38,9 @@ const NotificationForm = () => {
     <>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <StyledFormFieldContainer>
-          <div>
+          <StyledFormInputWrapper>
             <label>First Name</label>
-            <input
+            <StyledFormInput
               {...register('firstName', {
                 required: { value: true, message: 'First name is required' },
                 pattern: {
@@ -49,32 +49,34 @@ const NotificationForm = () => {
                 },
               })}
             />
-            {errors.firstName && errors.firstName.message}
-          </div>
+            <StyledFormError>
+              {errors.firstName && errors.firstName.message}
+            </StyledFormError>
+          </StyledFormInputWrapper>
 
-          <div>
-            <div>
-              <label>Last Name</label>
-              <input
-                {...register('lastName', {
-                  required: { value: true, message: 'Last name is required' },
-                  pattern: {
-                    value: /^[A-Za-z]+$/i,
-                    message: 'Please, only use letters',
-                  },
-                })}
-              />
-            </div>
+          <StyledFormInputWrapper>
+            <label>Last Name</label>
+            <StyledFormInput
+              {...register('lastName', {
+                required: { value: true, message: 'Last name is required' },
+                pattern: {
+                  value: /^[A-Za-z]+$/i,
+                  message: 'Please, only use letters',
+                },
+              })}
+            />
 
-            {errors.lastName && errors.lastName.message}
-          </div>
+            <StyledFormError>
+              {errors.lastName && errors.lastName.message}
+            </StyledFormError>
+          </StyledFormInputWrapper>
 
-          <div>
+          <StyledFormInputWrapper>
             <div>
               <input type="checkbox" />
               <label>Email</label>
             </div>
-            <input
+            <StyledFormInput
               type="email"
               {...register('email', {
                 pattern: {
@@ -83,15 +85,17 @@ const NotificationForm = () => {
                 },
               })}
             />
-            {errors.email && errors.email.message}
-          </div>
+            <StyledFormError>
+              {errors.email && errors.email.message}
+            </StyledFormError>
+          </StyledFormInputWrapper>
 
-          <div>
+          <StyledFormInputWrapper>
             <div>
               <input type="checkbox" />
               <label>Phone Number</label>
             </div>
-            <input
+            <StyledFormInput
               type="tel"
               {...register('phoneNumber', {
                 pattern: {
@@ -100,10 +104,12 @@ const NotificationForm = () => {
                 },
               })}
             />
-            {errors.phoneNumber && errors.phoneNumber.message}
-          </div>
+            <StyledFormError>
+              {errors.phoneNumber && errors.phoneNumber.message}
+            </StyledFormError>
+          </StyledFormInputWrapper>
 
-          <div>
+          <StyledFormInputWrapper>
             <label>Supervisor</label>
             <select
               {...register('supervisor', {
@@ -117,8 +123,10 @@ const NotificationForm = () => {
                 <option value={supervisor}>{supervisor}</option>
               ))}
             </select>
-            {errors.supervisor && errors.supervisor.message}
-          </div>
+            <StyledFormError>
+              {errors.supervisor && errors.supervisor.message}
+            </StyledFormError>
+          </StyledFormInputWrapper>
         </StyledFormFieldContainer>
 
         <input type="submit" />
@@ -127,11 +135,37 @@ const NotificationForm = () => {
   );
 };
 
-const StyledForm = styled.form``;
+const StyledForm = styled.form`
+  margin: 5rem;
+`;
 
 const StyledFormFieldContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
+
+const StyledFormInput = styled.input`
+  padding: 0.5rem 0.5rem;
+`;
+
+const StyledFormInputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+
+  label {
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+
+  span {
+    color: red;
+    position: absolute;
+    bottom: 0;
+  }
+`;
+
+const StyledFormError = styled.span``;
 
 export default NotificationForm;
