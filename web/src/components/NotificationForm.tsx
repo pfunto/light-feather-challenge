@@ -135,7 +135,7 @@ const NotificationForm = () => {
               type="tel"
               {...register('phoneNumber', {
                 pattern: {
-                  value: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/,
+                  value: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
                   message: 'Please enter a valid phone number',
                 },
               })}
