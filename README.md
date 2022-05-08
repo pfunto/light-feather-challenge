@@ -8,12 +8,11 @@ Once you have Docker run this command at the root of the repository to build the
 Then run this command to run the containers
 `docker-compose up`
 
-When you are done testing, stop the server and remove the container.
-`docker rm -f test`
-
 ### Running locally
 
 Install NodeJS. Binaries are found on the NodeJS main site. https://nodejs.org/en/download/
+
+#### Backend
 
 Navigate to the api directory
 
@@ -22,6 +21,8 @@ With NodeJS install the dependencies of the project
 
 Then start up the API server
 `npm start`
+
+#### Frontend
 
 Navigate to the web directory
 
