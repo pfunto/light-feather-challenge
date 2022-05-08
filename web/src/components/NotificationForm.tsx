@@ -17,6 +17,7 @@ const NotificationForm = () => {
   const [supervisors, setSupervisors] = useState<string[]>([]);
   const [isPhoneChecked, setIsPhoneChecked] = useState<boolean>(false);
   const [isEmailChecked, setIsEmailChecked] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     getManagers()
@@ -43,6 +44,7 @@ const NotificationForm = () => {
       reset();
       setIsEmailChecked(false);
       setIsPhoneChecked(false);
+      setIsSuccess(true);
     }
   }, [isSubmitSuccessful, reset]);
 
@@ -165,7 +167,14 @@ const NotificationForm = () => {
           </StyledFormError>
         </StyledFormDropDown>
 
-        <input type="submit" />
+        <StyledSubmitWrapper>
+          <input type="submit" />
+          {isSuccess ? (
+            <StyledFormSuccess>Successful submission!</StyledFormSuccess>
+          ) : (
+            <></>
+          )}
+        </StyledSubmitWrapper>
       </StyledForm>
     </>
   );
@@ -230,6 +239,20 @@ const StyledFormDropDown = styled.div`
     text-align: left;
     margin-bottom: 0.5rem;
   }
+`;
+
+const StyledSubmitWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2rem;
+`;
+
+const StyledFormSuccess = styled.span`
+  color: green;
+  position: absolute;
+  bottom: 0;
 `;
 
 export default NotificationForm;
