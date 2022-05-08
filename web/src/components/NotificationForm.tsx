@@ -94,6 +94,10 @@ const NotificationForm = () => {
             </StyledFormError>
           </StyledFormInputWrapper>
 
+          <StyledFormHeading>
+            How would you prefer to be notified?
+          </StyledFormHeading>
+
           <StyledFormInputWrapper>
             <StyledFormCheckBox>
               <input
@@ -174,6 +178,13 @@ const StyledForm = styled.form`
 const StyledFormFieldContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+`;
+
+const StyledFormHeading = styled.h2`
+  grid-column-start: span 2;
+  display: flex;
+  padding: 0 2rem;
+  font-size: 1rem;
 `;
 
 const StyledFormInput = styled.input`
