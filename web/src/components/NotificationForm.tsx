@@ -15,6 +15,8 @@ export interface NotificationFormFields {
 
 const NotificationForm = () => {
   const [supervisors, setSupervisors] = useState<string[]>([]);
+  const [isPhoneChecked, setIsPhoneChecked] = useState<boolean>(false);
+  const [isEmailChecked, setIsEmailChecked] = useState<boolean>(false);
 
   useEffect(() => {
     getManagers()
@@ -73,10 +75,14 @@ const NotificationForm = () => {
 
           <StyledFormInputWrapper>
             <StyledFormCheckBox>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                onClick={() => setIsEmailChecked(!isEmailChecked)}
+              />
               <label>Email</label>
             </StyledFormCheckBox>
             <StyledFormInput
+              disabled={!isEmailChecked}
               type="email"
               {...register('email', {
                 pattern: {
@@ -92,10 +98,14 @@ const NotificationForm = () => {
 
           <StyledFormInputWrapper>
             <StyledFormCheckBox>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                onClick={() => setIsPhoneChecked(!isPhoneChecked)}
+              />
               <label>Phone Number</label>
             </StyledFormCheckBox>
             <StyledFormInput
+              disabled={!isPhoneChecked}
               type="tel"
               {...register('phoneNumber', {
                 pattern: {
