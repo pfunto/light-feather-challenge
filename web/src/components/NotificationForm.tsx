@@ -31,10 +31,31 @@ const NotificationForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = useForm<NotificationFormFields>({ mode: 'onBlur' });
   const onSubmit: SubmitHandler<NotificationFormFields> = (data) =>
     createNotification(data);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+      setIsEmailChecked(false);
+      setIsPhoneChecked(false);
+    }
+  }, [isSubmitSuccessful, reset]);
+
+  useEffect(() => {
+    if (isEmailChecked === false) {
+      reset({ email: '' });
+    }
+  }, [isEmailChecked, reset]);
+
+  useEffect(() => {
+    if (isPhoneChecked === false) {
+      reset({ phoneNumber: '' });
+    }
+  }, [isPhoneChecked, reset]);
 
   return (
     <>
